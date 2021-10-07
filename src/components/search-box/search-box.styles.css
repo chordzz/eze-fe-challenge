@@ -1,15 +1,16 @@
-/* .search {
-    -webkit-appearance: none;
-    border: black;
-    outline: none;
-    padding: 10px;
-    width: 150px;
-    line-height: 30px;
-    margin-bottom: 30px;
-  }
-   */
 
-   .search {
-     display: block;
-     margin: 2rem auto;
-   }
+.search-form{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.search {
+  width: 75% !important;
+  flex: 1 40%;
+}
+
+.general-search-button{
+  flex-basis: 25%;
+}

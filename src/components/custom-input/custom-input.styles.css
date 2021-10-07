@@ -1,5 +1,11 @@
 input {
     border: 1px black solid;
     padding: 0.7rem 1rem;
-    /* display: inline; */
+    display: inline-block;
+    margin-bottom: 1rem;
+    /* width: 40%; */
 }
+
+/* .search {
+    width: 80%;
+} */

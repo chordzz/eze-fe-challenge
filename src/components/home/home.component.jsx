@@ -25,7 +25,7 @@ class Home extends Component {
 
         }
 
-        this.handleChange = this.handleChange.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
     }
 
     fetchItems = (endpoint) => {
@@ -35,17 +35,22 @@ class Home extends Component {
     }
 
     handleSearch = (e) => {
+        
         e.preventDefault();
         const {searchFieldText} = this.state;
 
         let searchQuery = searchFieldText.split(',').filter( element => element !== '' )
 
+        console.log(searchQuery);
+
         if(searchQuery.length === 1 ){
-            this.doSearch(searchQuery[0])
+            this.doSearch(null,searchQuery[0])
         }else if(searchQuery.length === 2) {
             this.doSearch(searchQuery[0], searchQuery[1])
         }else if(searchQuery.length === 3){
             this.doSearch(searchQuery[0], searchQuery[1], searchQuery[2])
+        }else {
+            alert("wrong input parameters")
         }
 
        
@@ -54,6 +59,7 @@ class Home extends Component {
 
 
     handleChange = (e) => {
+        
         const {searchFieldText, phoneData} = this.state;
 
         this.setState({searchFieldText: e.target.value})
@@ -131,11 +137,18 @@ class Home extends Component {
                 })
                 this.setState({fetching: false, filteredPhonesData: newArr }, () => console.log(this.state))
             })
+        }else {
+            alert("please check your search query ")
         }  
     }
 
     handlePriceChange = (a, b) => {
-        this.searchPhones(a, b)
+        if(a && b) {
+            this.searchPhones(a, b)
+        }else {
+            alert("invalid prices")
+        }
+        
     };
 
     searchPhones = (a, b) => {
@@ -163,7 +176,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        let endpoint = 'https://eze-mobile-api-staging.herokuapp.com/api/v1/products/price?category=Smartphones&brand=Apple&sort=lowestAsk&hoursInterval=24&limit=3&page=1&slugId='
+        let endpoint = 'https://eze-mobile-api-staging.herokuapp.com/api/v1/products/price?category=Smartphones&brand=Apple&sort=lowestAsk&hoursInterval=24&limit=30&page=1&slugId='
         this.fetchItems(endpoint)
 
     }
@@ -173,51 +186,65 @@ class Home extends Component {
         const {fetching, filteredPhonesData, searchFieldMax, searchFieldMin, searchFieldText } = this.state;
         
         return (
+            <>
             <div className="homepage">
-                <h1> Homepage </h1>
+                
+                <h1> Eze Phones </h1>
 
-                <SearchBox 
-                    handleChange = {this.handleChange}
-                    handleSearch = {this.handleSearch}
-                    value = {searchFieldText}
-                    // onKeydown = {(e) => console.log(e)}
-                    // handleChange2 = {this.handleChange2}
-                    placeholder = "Search Phones"
+                <div className = "search-div"> 
+                    <div className="general-search">
+                        <SearchBox 
+                            handleChange = {this.handleChange}
+                            handleSearch = {this.handleSearch}
+                            value = {searchFieldText}
+                            placeholder = "Search Phones"
+                        />
+                    </div>
+
+                    <div className="price-search">
+                        <CustomInput 
+                            type = "number"
+                            name = "min-price"
+                            className = "text-input"
+                            placeholder = "Enter minimum price"
+                            onChange = {(e) => this.setState({ searchFieldMin: e.target.value })}
+                        />
+
+                        <CustomInput 
+                            type = "number"
+                            name = "max-price"
+                            placeholder = "Enter maximum price"
+                            className = "text-input"
+                            onChange = {(e) => this.setState({ searchFieldMax: e.target.value })}
+                        />
+
+                        <CustomButton 
+                            type = "submit"
+                            onClick = {() => 
+                                {
+                                    this.handlePriceChange(searchFieldMax, searchFieldMin)
+                                }
+                            }
+                            placeholder = "Search by Prices"
+                        />
+                    </div>
                     
-                    // values = {this.handleChange2}
-                />
+                    
+                </div>
 
-                <CustomInput 
-                    type = "number"
-                    name = "min-price"
-                    className = "text-input"
-                    placeholder = "Enter minimum price"
-                    onChange = {(e) => this.setState({ searchFieldMin: e.target.value })}
-                />
-
-                <CustomInput 
-                    type = "number"
-                    name = "max-price"
-                    placeholder = "Enter maximum price"
-                    className = "text-input"
-                    onChange = {(e) => this.setState({ searchFieldMax: e.target.value })}
-                />
-
-                <CustomButton 
-                    type = "submit"
-                    onClick = {() => 
-                        {
-                            this.handlePriceChange(searchFieldMax, searchFieldMin)
-                        }
-                    }
-                    placeholder = "Search by Prices"
-                />
-
+                {/* <div className = "grid">
                 {
                     fetching ? <h3>Loading Data...</h3> : <CardList phones = {filteredPhonesData} />
                 }
+                </div> */}
         
             </div>
+            <div className = "container">
+                {
+                    fetching ? <h3>Loading Data...</h3> : <CardList phones = {filteredPhonesData} />
+                }
+            </div>
+            </>
         )
     }
 }

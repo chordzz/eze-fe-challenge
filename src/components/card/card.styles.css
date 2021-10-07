@@ -15,7 +15,14 @@
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
   align-items: center;
+  width: 20%;
+  margin-bottom: 1rem;
+  text-align: left;
 
+}
+
+.card-container h2 {
+  text-align: center;
 }
 
 .card-container:hover {

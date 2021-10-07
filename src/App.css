@@ -1,5 +1,16 @@
 .App {
-  
-  text-align: center;
+  width: 90%;
+  margin: 0 auto;
 }
 
+input:focus{
+  outline: 0.5px solid blue;
+  border: none;
+}
+
+button:hover{
+  background: white;
+  color:black;
+  cursor: pointer;
+  /* border: 1px solid black; */
+}
