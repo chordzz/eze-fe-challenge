@@ -3,7 +3,6 @@ import React from 'react';
 import './card.styles.css';
 
 export const Card = (props) => {
-    // console.log(props.phone)
 
     
         
@@ -19,9 +18,9 @@ export const Card = (props) => {
                 props.phone.price ?
                 (   
                     <div className="others">
-                        <p>{props.phone.price.storageSize}</p>
-                        <p>{props.phone.price.grade}</p>
-                        <p>{props.phone.price.amount}</p>
+                        <p>Storage Size: {props.phone.price.storageSize}</p>
+                        <p>Grade: {props.phone.price.grade}</p>
+                        <p>Price: {props.phone.price.amount}</p>
                     </div>
                     
                 )

@@ -1,9 +1,13 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  background-color: #95dada;
+  /* background-color: #95dada; */
+  background-color: #fff;
   border: 1px solid grey;
-  border-radius: 5px;
+  box-shadow: 11px 13px 5px -5px rgba(0,0,0,0.37);
+  -webkit-box-shadow: 11px 13px 5px -5px rgba(0,0,0,0.37);
+  -moz-box-shadow: 11px 13px 5px -5px rgba(0,0,0,0.37);
+  /* border-radius: 5px; */
   padding: 25px;
   cursor: pointer;
   -moz-osx-font-smoothing: grayscale;
@@ -11,6 +15,7 @@
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
   align-items: center;
+
 }
 
 .card-container:hover {
